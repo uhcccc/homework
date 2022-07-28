@@ -50,6 +50,10 @@ endfor<br>
 H(i+1) = ABCDEFGH⊕H(i)<br>
 代码实现如下：<br>
 ![617c3fa0e01d2263a0cf7c60a637427](https://user-images.githubusercontent.com/110144909/181444413-0520dff9-eee4-41f7-8833-40f8eafa8884.png)
-### 三、运行过程
+### 三、SM3优化
+利用SIMD指令集对SM3算法进行优化处理
+<br>
+# SM3_birthday_attack
+
 
 
