@@ -54,6 +54,10 @@ H(i+1) = ABCDEFGH⊕H(i)<br>
 利用SIMD指令集对SM3算法进行优化处理
 <br>
 # SM3_birthday_attack
+### 一、原理
+利用生日攻击，找到一对消息，使得二者哈希值相同，则找到了碰撞。 
+### 二、结果
+![3ec8eb93f038df966e3f2eb6cd63daf](https://user-images.githubusercontent.com/110144909/181549757-486c3643-b5ed-43a5-bdfe-7cf69013a152.png)
 
 
 
