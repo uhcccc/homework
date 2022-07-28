@@ -49,7 +49,12 @@ H(i+1) = ABCDEFGH⊕H(i)
 #### （二）SM3生日攻击
 利用生日攻击，找到一对消息，使得二者哈希值相同，则找到了碰撞。 
 ### 二、结果
-![3ec8eb93f038df966e3f2eb6cd63daf](https://user-images.githubusercontent.com/110144909/181549757-486c3643-b5ed-43a5-bdfe-7cf69013a152.png)
+###### a=17, b=342, p=577
+![图片](https://user-images.githubusercontent.com/110144909/181572676-15d865df-b2a0-46d5-b281-8102fe67c9ff.png)
+###### a=19, b=298, p=521
+![图片](https://user-images.githubusercontent.com/110144909/181573203-50e16079-36bd-4594-88d7-27d413293ce7.png)
+###### a=17, b=258, p=523
+![图片](https://user-images.githubusercontent.com/110144909/181573606-dc5ee3b0-90eb-4ff1-a35c-312febcd47d2.png)
 
 
 
