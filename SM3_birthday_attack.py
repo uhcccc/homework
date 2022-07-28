@@ -42,7 +42,7 @@ def brithAttack(a, b, p):
             k_value = list_k[k_index]
             l_value = list_l[l_index]
             x = k_value + l_value
-            print("找到了碰撞：")
+            print("找到了碰撞，另一个值为：")
             print(x % (p - 1))
         return True
 
