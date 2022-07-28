@@ -1,6 +1,7 @@
 #include "SM3.h"
 #include <stdlib.h>
 
+//8个寄存器，用来消息压缩
 static const enum 
 {
 	A=0,
@@ -13,6 +14,7 @@ static const enum
 	H=7
 };
 
+//算法的初始值共256bit，由如下8个32bit串联构成
 static const unsigned int IV[8] =
 {
 	0x7380166F,	0x4914B2B9,
@@ -20,6 +22,7 @@ static const unsigned int IV[8] =
 	0xA96F30BC,	0x163138AA,
 	0xE38DEE4D,	0xB0FB0E4E,
 };
+
 static unsigned int T[64] = { 0 };
 static void _init_T()
 {
@@ -65,12 +68,13 @@ static unsigned int _P1(const unsigned int X)
 	return (X ^ (_rotate_left_move(X, 15)) ^ (_rotate_left_move(X, 23)));
 }
 
+//迭代压缩
 static unsigned int _CF(unsigned char* ucpSrcMsg, unsigned int nHash[8])
 {
 	unsigned int W68[68] = { 0 };
 	unsigned int W64[64] = { 0 };
 
-	//message extension
+	//消息扩展
 	int j = 0;
 	for (j = 0; j < 16; j++)
 	{
@@ -79,7 +83,7 @@ static unsigned int _CF(unsigned char* ucpSrcMsg, unsigned int nHash[8])
 			| ((unsigned int)ucpSrcMsg[j * 4 + 2] << 8) & 0x0000FF00
 			| ((unsigned int)ucpSrcMsg[j * 4 + 3] << 0) & 0x000000FF;
 	}
-
+ 
 	for (j = 16; j < 68; j++)
 	{
 		W68[j] = _P1(W68[j - 16] ^ W68[j - 9] ^ (_rotate_left_move(W68[j - 3], 15))) ^ (_rotate_left_move(W68[j - 13], 7)) ^ W68[j - 6];
@@ -90,14 +94,14 @@ static unsigned int _CF(unsigned char* ucpSrcMsg, unsigned int nHash[8])
 		W64[j] = W68[j] ^ W68[j + 4];
 	}
 
-	//iterative process
+	//迭代过程
 	unsigned int A_G[8] = { 0 };
 	for (j = 0; j < 8; j++)
 	{
 		A_G[j] = nHash[j];
 	}
 
-	//tempporary variable
+	//压缩函数
 	unsigned int SS1 = 0, SS2 = 0, TT1 = 0, TT2 = 0;
 
 	for (j = 0; j < 64; j++)
@@ -124,6 +128,7 @@ static unsigned int _CF(unsigned char* ucpSrcMsg, unsigned int nHash[8])
 	return 0;
 }
 
+//实现SM3算法
 unsigned int sm3(
 	unsigned char* ucpSrcData, 
 	unsigned int nSrcLen,
@@ -132,7 +137,7 @@ unsigned int sm3(
 {
 	_init_T();
 
-	// message fill
+	// 消息填充
 	unsigned int nGroupNum = (nSrcLen + 1 + 8 + 64) / 64;
 	unsigned char *ucpMsgBuf = (unsigned char*)malloc(nGroupNum * 64);
 	memset(ucpMsgBuf, 0, nGroupNum * 64);
